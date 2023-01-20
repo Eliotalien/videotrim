@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Video Cutting Website</title>
+<style>
+body {
+  background-image: url("hacker.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.container {
+width: 80%;
+margin: 0 auto;
+text-align: center;
+color: black;
+}
+
+.video-player {
+width: 100%;
+margin: 0 auto;
+text-align: center;
+}
+
+.trim-button {
+padding: 10px 20px;
+background-color: #4CAF50;
+color: white;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+}
+
+.download-button {
+padding: 10px 20px;
+background-color: #008CBA;
+color: white;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+}
+
+.time-select {
+padding: 10px 20px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+}
+
+@media (max-width: 400px) {
+.container {
+width: 90%;
+}
+
+.video-player {
+width: 100%;
+}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Video Cutting Website</h1>
+  <p>Upload your video and trim it to your desired length for easy downloading.</p>
+  <input type="file" id="video-file" onchange="uploadVideo()">
+  <div class="video-player">
+    <video id="video" controls></video>
+  </div>
+  <select class="time-select" id="trim-time">
+    <option value="600">10 minutes</option>
+    <option value="900">15 minutes</option>
+    <option value="1800">30 minutes</option>
+  </select>
+  <button class="trim-button" onclick="trimVideo()">Trim Video</button>
+  <button class="download-button" onclick="downloadVideo()">Download Trimmed Video</button>
+</div>
+<script>
+function uploadVideo() {
+  var videoFile = document.getElementById("video-file").files[0];
+  var video = document.getElementById("video");
+  var fileURL = URL.createObjectURL(videoFile);
+  video.src = fileURL;
+}
+
+function trimVideo() {
+  var video = document.getElementById("video");
+  var trimTime = document.getElementById("trim-time").value;
+  video.currentTime = 0;
+  video.duration = trimTime;
+}
+
+function downloadVideo() {
+  var video = document.getElementById("video");
+  var videoURL = video.src;
+  var a = document.createElement("a");
+  a.href = videoURL;
+  a.download = "trimmed-video.mp4";
+  a.click();
+}
+</script>
+</body>
+</html>
